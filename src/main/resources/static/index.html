@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <meta name=Generator content="Word">
+    <title>Javatopia Garbage Collector Wars</title>
+
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+
+
+
+
+
+
+
+<div>
+
+<div style='border:none;border-bottom:solid #4F81BD 1.0pt;padding:0in 0in 4.0pt 0in'>
+
+    <p class=MsoTitle>Javatopia Garbage Collector Wars </p>
+
+</div>
+
+<h1><a name="_Toc315390801">Quick links:</a></h1>
+
+<p >&nbsp;</p>
+
+<p >Statistics: <a href="/api/statistics">[general]</a> </p>
+
+<p >Sector map:
+
+
+    <script>
+
+
+    for(i = 1; i <= 10; i++){
+       document.write('   <a href="/api/sector/'+i+'/objects">['+i+']</a>');
+    }
+</script>
+
+
+</p>
+
+<p >System root map:
+
+
+    <script type="text/javascript">
+
+
+    for(i = 1; i <= 10; i++){
+       document.write('   <a href="/api/sector/'+i+'/roots">['+i+']</a>');
+    }
+</script>
+
+
+</p>
+
+<p >Graph image:
+
+    <script type="text/javascript">
+
+    for(i = 1; i <= 10; i++){
+       document.write('   <a href="/api/sector/'+i+'/image.png">['+i+']</a>');
+    }
+    //-->
+</script>
+
+</p>
+<p >&nbsp;</p>
+
+<h1>Description</h1>
+
+Once upon a time in the virtual world of Javatopia there was a Big-Cloud-City. The town lacked
+garbage collection and the memory of the city was constantly growing. 10  commercial
+waste collection companies were competing for the exclusive license to do the environmental
+services. The Big-Cloud-City consisted of 10 sectors and there were 10 garbage cars in
+it, every company had one car in each sector.
+
+
+The rules for garbage collections in the virtual world of Javatopia were unexpectedly similar to
+the rules for garbage collection in the Java Language we all know. Each sector contains some
+regular objects and some system object. System object cannot be collected. Every regular object
+can be collected only if there is no way to reach it by following the references from the system
+objects.
+<br/><br/>
+As this is a war, your program has to collect more objects than other programs running at the
+same time. Beware, if you don't collect the objects correctly, you car will explode. While
+repairing it, you will lose valuable time. Meanwhile your competitors can collect all the garbage.
+
+
+<h1>REST API </h1>
+
+
+<p >You are one of the environmental companies and you have cars. There is one car per sector. You
+    control your cars from a simple REST interface..
+</p>
+
+
+
+<h2><a name="_Toc315390803">Retrieving the object connection map by a sector
+    number</a></h2>
+
+<p >&nbsp;</p>
+
+<table width="80%" Table border=0 cellspacing=0 cellpadding=0
+       style='border-collapse:collapse'>
+    <tr>
+        <td style='border:solid #CCCCCC 1.0pt;background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>URL</span></p>
+        </td>
+        <td style='border:solid #CCCCCC 1.0pt;border-left:none;background:white;
+  padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><a href="http://server:port/api/sector/[id]/objects">http<span
+                    lang=BG>:/</span>/server:port<span lang=BG>/</span>api<span lang=BG>/</span>sector<span
+                    lang=BG>/[</span>id<span lang=BG>]/</span>objects</a></p>
+        </td>
+    </tr>
+    <tr>
+        <td style='border:solid #CCCCCC 1.0pt;border-top:none;background:white;
+  padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>Method</span></p>
+        </td>
+        <td style='border-top:none;border-left:none;border-bottom:solid #CCCCCC 1.0pt;
+  border-right:solid #CCCCCC 1.0pt;background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>GET</span></p>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan=2 style='border:solid #CCCCCC 1.0pt;border-top:none;background:
+  white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>Returns</span></p>
+        </td>
+        <td style='border-top:none;border-left:none;border-bottom:solid #CCCCCC 1.0pt;
+  border-right:solid #CCCCCC 1.0pt;background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>200
+  OK &amp; </span><span style='font-family:"Times New Roman","serif"'>simple
+  text file (see below)</span></p>
+        </td>
+    </tr>
+    <tr>
+        <td style='border-top:none;border-left:none;border-bottom:solid #CCCCCC 1.0pt;
+  border-right:solid #CCCCCC 1.0pt;background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>404
+  Not Found</span><span style='font-family:"Times New Roman","serif"'> if there
+  is no such sector (id must be between 1 and 10)</span></p>
+        </td>
+    </tr>
+</table>
+
+<p >&nbsp;</p>
+
+<p >The result is a simple text file with the object connection
+    in the following format:</p>
+
+<p >&nbsp;</p>
+
+<p  style='margin-left:1.0in'><b><span style='font-family:"Courier New"'>A1
+B1</span></b></p>
+
+<p  style='margin-left:1.0in'><b><span style='font-family:"Courier New"'>A2
+B2</span></b></p>
+
+<p  style='margin-left:1.0in'><b><span style='font-family:"Courier New"'>A3
+B3</span></b></p>
+
+<p  style='margin-left:1.0in'><b><span style='font-family:"Courier New"'>...</span></b></p>
+
+<p  style='margin-left:1.0in'><b><span style='font-family:"Courier New"'>AN
+BN</span></b></p>
+
+<p >&nbsp;</p>
+
+<p >For example:</p>
+
+<p >&nbsp;</p>
+
+<p > <b><span style='font-family:
+"Courier New"'>1 2</span></b></p>
+
+<p ><b><span style='font-family:"Courier New"'> 1 6</span></b></p>
+
+<p ><b><span style='font-family:"Courier New"'> 2 20</span></b></p>
+
+<p ><b><span style='font-family:"Courier New"'> 2 30</span></b></p>
+
+<p ><b><span style='font-family:"Courier New"'> 4 6</span></b></p>
+
+<p ><b><span style='font-family:"Courier New"'> 6 9</span></b></p>
+
+<p ><b><span style='font-family:"Courier New"'> 6 1223</span></b></p>
+
+<p ><b><span style='font-family:"Courier New"'> 1223 20</span></b></p>
+
+<p ><b><span style='font-family:"Courier New"'> 4 7</span></b></p>
+
+<p ><b><span style='font-family:"Courier New"'> 108 94</span></b></p>
+
+<p ><b><span style='font-family:"Courier New"'> 108 7</span></b></p>
+
+<p ><b><span style='font-family:"Courier New"'> 100 101</span></b></p>
+
+<p ><b><span style='font-family:"Courier New"'> 101 100</span></b></p>
+
+<p ></p>
+
+<p >This will correspond to the following object structure:</p>
+
+<p >&nbsp;</p>
+
+<p ><img border=0 width=380 height=380
+                        src="index_files/image001.jpg"></p>
+
+
+
+<h2><a name="_Toc315390804">Retrieving the system roots by sector number</a></h2>
+
+<p >&nbsp;</p>
+
+<p >&nbsp;</p>
+
+<table width="80%" Table border=0 cellspacing=0 cellpadding=0
+       style='border-collapse:collapse'>
+    <tr>
+        <td style='border:solid #CCCCCC 1.0pt;background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>URL</span></p>
+        </td>
+        <td style='border:solid #CCCCCC 1.0pt;border-left:none;background:white;
+  padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><a href="http://server:port/api/sector/[id]/roots">http<span
+                    lang=BG>:/</span>/server:port<span lang=BG>/</span>api<span lang=BG>/</span>sector<span
+                    lang=BG>/[</span>id<span lang=BG>]/</span>root</a></p>
+        </td>
+    </tr>
+    <tr>
+        <td style='border:solid #CCCCCC 1.0pt;border-top:none;background:white;
+  padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>Method</span></p>
+        </td>
+        <td style='border-top:none;border-left:none;border-bottom:solid #CCCCCC 1.0pt;
+  border-right:solid #CCCCCC 1.0pt;background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>GET</span></p>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan=2 style='border:solid #CCCCCC 1.0pt;border-top:none;background:
+  white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>Returns</span></p>
+        </td>
+        <td style='border-top:none;border-left:none;border-bottom:solid #CCCCCC 1.0pt;
+  border-right:solid #CCCCCC 1.0pt;background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>200
+  OK &amp; </span><span style='font-family:"Times New Roman","serif"'>simple
+  text file (see below)</span></p>
+        </td>
+    </tr>
+    <tr>
+        <td style='border-top:none;border-left:none;border-bottom:solid #CCCCCC 1.0pt;
+  border-right:solid #CCCCCC 1.0pt;background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>404
+  Not Found</span><span style='font-family:"Times New Roman","serif"'> if there
+  is no such sector (id must be between 1 and 10)</span></p>
+        </td>
+    </tr>
+</table>
+
+<p ><span lang=BG>&nbsp;</span></p>
+
+<p >The result is a simple text file with the system roots in
+    the following format:</p>
+
+<p >&nbsp;</p>
+
+<p  style='margin-left:1.0in'><b><span style='font-family:"Courier New"'>R1
+</span></b></p>
+
+<p  style='margin-left:1.0in'><b><span style='font-family:"Courier New"'>R2
+</span></b></p>
+
+<p  style='margin-left:1.0in'><b><span style='font-family:"Courier New"'>...</span></b></p>
+
+<p  style='margin-left:1.0in'><b><span style='font-family:"Courier New"'>RM</span></b></p>
+
+<p ><br>
+    For example:</p>
+
+<p >&nbsp;</p>
+
+<p  style='margin-left:1.0in'><b><span style='font-family:"Courier New"'>6
+</span></b></p>
+
+<p  style='margin-left:1.0in'><b><span style='font-family:"Courier New"'>4
+</span></b></p>
+
+<p  style='margin-left:1.0in'><b><span style='font-family:"Courier New"'>...</span></b></p>
+
+<p  style='margin-left:1.0in'><b><span style='font-family:"Courier New"'>9</span></b></p>
+
+<p >&nbsp;</p>
+
+<p >If we continue the previous example this will produce the
+    following graph:</p>
+
+<p >&nbsp;</p>
+
+<p ><img border=0 width=380 height=380
+                        src="index_files/image002.jpg"></p>
+
+<p >In this example only the objects with white background will
+    be collectable.</p>
+
+<p >&nbsp;</p>
+
+<h2><a name="_Toc315390805">Driving the garbage car trough a &quot;white
+    trajectory&quot;</a><br>
+    <br>
+</h2>
+
+<table Table border=0 cellspacing=0 cellpadding=0 width=786
+       style='width:471.75pt;border-collapse:collapse'>
+    <tr>
+        <td style='border:solid #CCCCCC 1.0pt;background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>URL</span></p>
+        </td>
+        <td width=693 style='width:415.6pt;border:solid #CCCCCC 1.0pt;border-left:
+  none;background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p  style='margin-right:-1.25in'>http<span lang=BG>://</span>server:port<span
+                    lang=BG>/</span>api<span lang=BG>/</span>sector<span lang=BG>/[</span>id<span
+                    lang=BG>]/</span>company<span lang=BG>/[</span>your<span lang=BG>-</span>company<span
+                    lang=BG>-</span>name<span lang=BG>]/</span>trajectory</p>
+        </td>
+    </tr>
+    <tr>
+        <td style='border:solid #CCCCCC 1.0pt;border-top:none;background:white;
+  padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>Method</span></p>
+        </td>
+        <td width=693 style='width:415.6pt;border-top:none;border-left:none;
+  border-bottom:solid #CCCCCC 1.0pt;border-right:solid #CCCCCC 1.0pt;
+  background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span style='font-family:"Times New Roman","serif"'>POST</span></p>
+        </td>
+    </tr>
+    <tr>
+        <td style='border:solid #CCCCCC 1.0pt;border-top:none;background:white;
+  padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span style='font-family:"Times New Roman","serif"'>Parameter</span></p>
+        </td>
+        <td width=693 style='width:415.6pt;border-top:none;border-left:none;
+  border-bottom:solid #CCCCCC 1.0pt;border-right:solid #CCCCCC 1.0pt;
+  background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span style='font-family:"Times New Roman","serif"'>trajectory:
+  a1 a2 ... an - a valid white trajectory (see below)</span></p>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan=2 style='border:solid #CCCCCC 1.0pt;border-top:none;background:
+  white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+        </td>
+        <td width=693 style='width:415.6pt;border-top:none;border-left:none;
+  border-bottom:solid #CCCCCC 1.0pt;border-right:solid #CCCCCC 1.0pt;
+  background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>200
+  OK.</span><span lang=BG style='font-family:"Times New Roman","serif"'> </span><span
+                    style='font-family:"Times New Roman","serif"'>The objects from your
+  trajectory will be collected if possible. Your garbage car will need 1 time
+  unit to go trough the trajectory so the request will return result after
+  about 1 second.</span></p>
+        </td>
+    </tr>
+    <tr>
+        <td width=693 style='width:415.6pt;border-top:none;border-left:none;
+  border-bottom:solid #CCCCCC 1.0pt;border-right:solid #CCCCCC 1.0pt;
+  background:white;padding:1.5pt 3.75pt 1.5pt 3.75pt'>
+            <p ><span style='font-family:"Times New Roman","serif"'>418
+  ERROR (I'm a teapot - RFC 2324) - your request was incorrect, invalid
+  &quot;white trajectory&quot; (see below). Too bad - you broke the car and you
+  needed to wait 10 time units before repairing it. The error is returned after
+  10 second delay.</span></p>
+            <p ><span style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+            <p ><span lang=BG style='font-family:"Times New Roman","serif"'>404
+  </span><span style='font-family:"Times New Roman","serif"'>ERROR (</span><span
+                    lang=BG style='font-family:"Times New Roman","serif"'>Not Found</span><span
+                    style='font-family:"Times New Roman","serif"'>) - if there is no such sector
+  </span></p>
+        </td>
+    </tr>
+</table>
+
+<p  style='margin-right:-1.25in'>&nbsp;</p>
+
+The &quot;white
+trajectory&quot; is a path only trough the objects, suitable for garbage collection.
+Each two neighbor objects in the white trajectory should be connected from left
+to right. In the example we are working with, the following white trajectories
+are valid:
+
+<p  style='margin-right:-1.25in'>&nbsp;</p>
+
+<p  style='margin-right:-1.25in'>1 2 20 </p>
+
+<p  style='margin-right:-1.25in'>1 2 30</p>
+
+<p  style='margin-right:-1.25in'>1</p>
+
+<p  style='margin-right:-1.25in'>30</p>
+
+<p  style='margin-right:-1.25in'>108 94</p>
+
+<p  style='margin-right:-1.25in'>100 101</p>
+
+<p  style='margin-right:-1.25in'>101 100</p>
+
+<p  style='margin-right:-1.25in'>&nbsp;</p>
+
+<p  style='margin-right:-1.25in'>The following trajectories are
+    NOT valid white trajectories:</p>
+
+<p  style='margin-right:-1.25in'>20 2 1</p>
+
+<p  style='margin-right:-1.25in'>1 6</p>
+
+<p  style='margin-right:-1.25in'>4</p>
+
+<p  style='margin-right:-1.25in'>1223 20</p>
+
+<p  style='margin-right:-1.25in'>&nbsp;</p>
+
+The white trajectories are
+compared against the initial map, not against the current state. For example if
+the object 2 is already collected by some other player, the request 1, 2, 30
+will still be a valid &quot;white trajectory&quot; - as result 1 and 30 will be
+collected.
+
+
+<p  style='margin-right:-1.25in'>&nbsp;</p>
+
+<p  style='margin-right:-1.25in'>Example requests:</p>
+
+<p  style='margin-right:-1.25in'>&nbsp;</p>
+
+<p  style='margin-right:-1.25in'>POST: http<span lang=BG>://</span>server:port<span
+        lang=BG>/</span>api<span lang=BG>/</span>sector<span lang=BG>/4/</span>company<span
+        lang=BG>/</span>Ditz<span lang=BG>/</span>trajectory</p>
+
+<p  style='margin-right:-1.25in'>trajectory: 1 2 20</p>
+
+<p  style='margin-right:-1.25in'>&nbsp;</p>
+
+<p  style='margin-right:-1.25in'>POST: http<span lang=BG>://</span>server:port<span
+        lang=BG>/</span>api<span lang=BG>/</span>sector<span lang=BG>/4/</span>company<span
+        lang=BG>/</span>Titan<span lang=BG>/</span>trajectory</p>
+
+<p  style='margin-right:-1.25in'>trajectory=1</p>
+
+<p >&nbsp;</p>
+
+<h1><a name="_Toc315390806">Competition Rules</a></h1>
+<br><br>
+Develop a client with a language or technology that you prefer. When the competition starts,
+you will connect the client from your own virtual machine to the shared server. The player who
+collects most of the garbage from the Javatopia Server will win the license for environmental
+services in the Big-Cloud-City.
+<br><br>
+Look at /projects/server in your virtual machine. You will see the source code of the server. You
+can run the server in order to perform local test. Feel free to use some of the code in your client
+if you need. There is no constraint for the approach or algorithm you use, but please connect to
+the shared server only from your virtual machine. You should use only a single company name
+when setting trajectories. Your solution can be a multi-process or multi-threaded application, but
+for a garbage car the server will allow only one simultaneous white trajectory POST from your
+host.
+<br><br>
+The dimensions and object density for each round can be found in the source code of the server.
+<br><br>
+<b>Good luck!</b>
+
+</div>
+
+
+<p >
+    <a href="/api/secured/restart">[Restart the server]</a>            <a href="/api/secured/stop">[Stop the server]</a>
+</p>
+
+</body>
+
+</html>
