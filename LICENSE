@@ -3,7 +3,7 @@
 * The Graphviz library, which is embedded in the source tree a binary in the resource folder is under Eclipse Public License,
 consult http://opensource.org/licenses/EPL-1.0.
 
-* All open source binaries, which are embedded during the build, but do not exist in our source tree, are under their corresponding OSI approved, "copyleft" licenses,  consult http://opensource.org/faq#copyleft for more details.
+* All open source binaries, which are embedded during the build, but do not exist in our source tree, are under their corresponding OSI approved, "non-copyleft" licenses,  consult http://opensource.org/faq#copyleft for more details.
 
 
 The MIT License (MIT)
