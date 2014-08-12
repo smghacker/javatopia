@@ -143,14 +143,11 @@ public class ImageFacade {
 				PrintWriter pw = null;
 				if (os != null) {
 					int i;
-					System.out.println("loading outp");
 					byte[] buf = new byte[1024];
 					int len;
 					while ((len = is.read(buf)) > 0) {
 						os.write(buf, 0, len);
 					}
-					System.out.println("loading outp fai");
-
 					return;
 				}
 
