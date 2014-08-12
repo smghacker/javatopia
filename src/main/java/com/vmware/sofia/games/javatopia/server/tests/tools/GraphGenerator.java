@@ -23,7 +23,7 @@ public class GraphGenerator
         if(maxNode < (long)elements)
             maxNode = elements * 2;
         HashSet usedRandoms = new HashSet();
-        Random rnd = new Random(-3L);
+        Random rnd = new Random();
         Long rootElements[] = new Long[elements / 15 + 1];
         Long linkedElements[] = new Long[elements / 3];
         Long unlinkedElementsCyclic1[] = new Long[elements / 5];
@@ -88,7 +88,7 @@ public class GraphGenerator
 
     private static void addLinksBetweenArrays(int linkNumber, Graph g, Long array[], Long array2[])
     {
-        Random rnd = new Random(-5L);
+        Random rnd = new Random();
         for(int i = 0; i < linkNumber; i++) {
             g.addLink(array[rnd.nextInt(array.length)], array2[rnd.nextInt(array2.length)]);
         }
