@@ -1,48 +1,43 @@
 package com.vmware.sofia.games.javatopia.server.rest;
 
-
-import com.vmware.sofia.games.javatopia.server.rest.latency.LatencyService;
-import com.vmware.sofia.games.javatopia.server.tests.tools.GraphGenerator;
-import com.vmware.sofia.games.javatopia.server.tests.tools.TestSuite;
-import org.springframework.stereotype.Component;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 
-/**h
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.vmware.sofia.games.javatopia.server.rest.latency.LatencyService;
+import com.vmware.sofia.games.javatopia.server.tests.tools.TestSuite;
+
+/**
  * Created by kosio on 7/23/14.
  */
 
-@Path("/secured")
-@Component
+@RestController
 public class GoodbyeWorld {
-    @Context
-    HttpServletResponse _currentResponse;
 
-    @GET
-    @Path("/restart")
-    public String restart() {
-        TestSuite.newTestSuite();
-        LatencyService.restart();
-        try {
-            _currentResponse.sendRedirect("//");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "Server restarted.";
+   @Autowired
+   ApplicationContext ctx;
 
-    }
+   @RequestMapping("/api/secured/restart")
+   public String restart(HttpServletResponse response) {
+      TestSuite.newTestSuite();
+      LatencyService.restart();
+      try {
+         response.sendRedirect("//");
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+      return "Server restarted.";
 
-    @GET
-    @Path("/stop")
-    public String stop() {
-        System.exit(0);
-        return null;
-    }
+   }
+
+   @RequestMapping("/api/secured/stop")
+   public void stop() throws IOException {
+      SpringApplication.exit(ctx);
+   }
 }

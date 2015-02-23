@@ -8,7 +8,7 @@ The platform is fully self contained and easy deployable - just  pom clean insta
 
 In order to see instruction and competition rules, login to  :8080.
 
-The service accepts anonymous authentication, only if you want to restart the server, use any user name and password "password". If yo want to set a different password, use  -Dpassword=myPassword
+The service accepts anonymous authentication, only if you want to restart the server, use any user name and password "password". If you want to set a different password, use  -Dpassword=myPassword
 
 As spring boot is quite new technology, we had to use the snapshot repository. If the build attempt fails, and the build is performed long time after the last commit here, most probably you will need to correct the dependencies in the main pom.xml - so don't panic, just change the properties.
 
