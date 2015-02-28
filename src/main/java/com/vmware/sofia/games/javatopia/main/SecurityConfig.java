@@ -1,6 +1,7 @@
 package com.vmware.sofia.games.javatopia.main;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,17 +12,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+   @Value("${password:password}")
+   private String password;
+
    @Autowired
    public void configureGlobal(AuthenticationManagerBuilder auth)
          throws Exception {
-      auth.inMemoryAuthentication().withUser("user").password("password")
-            .roles("USER");
+      auth.inMemoryAuthentication().withUser("user").password(password)
+      .roles("USER");
    }
 
    @Override
    protected void configure(HttpSecurity http) throws Exception {
       http.authorizeRequests()
-            .antMatchers("/api/secured/restart", "/api/secured/stop")
-            .authenticated().and().formLogin().and().httpBasic();
+      .antMatchers("/api/secured/restart", "/api/secured/stop")
+      .authenticated().and().formLogin().and().httpBasic();
    }
 }
