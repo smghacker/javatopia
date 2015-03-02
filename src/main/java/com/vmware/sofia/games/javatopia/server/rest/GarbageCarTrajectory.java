@@ -59,8 +59,9 @@ public class GarbageCarTrajectory {
    }
 
    String changeTrajectory(Graph gr, String company, String trajectory) {
-      if (company.length() > 7)
+      if (company.length() > 7) {
          company = company.substring(0, 7);
+      }
       try {
          gr.enterSuspendedState();
          String[] st = trajectory.split(" ");
