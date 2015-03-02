@@ -9,6 +9,7 @@ import java.util.zip.ZipInputStream;
 import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -30,36 +31,25 @@ public class Bootstrap {
 
    public static void main(String[] args) throws Exception {
       // unzipGraphiz();
-      SpringApplication.run(Bootstrap.class, args);
-
+      ConfigurableApplicationContext ctx = SpringApplication.run(
+            Bootstrap.class, args);
+      OSValidator osValidator = ctx.getBean(OSValidator.class);
+      if (osValidator.isWindows()) {
+         unzipGraphiz();
+      }
    }
 
-   // @Override
-   // protected SpringApplicationBuilder configure(SpringApplicationBuilder
-   // application) {
-   // return application.sources(Bootstrap.class);
-   // }
-   //
-   //
-   // @Bean
-   // public ServletRegistrationBean jerseyServlet() {
-   // ServletRegistrationBean registration = new ServletRegistrationBean(new
-   // ServletContainer(), "/api/*");
-   // // our rest resources will be available in the path /rest/*
-   // registration.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS,
-   // JerseyConfig.class.getName());
-   // return registration;
-   // }
-
    public static void unzipGraphiz() throws Exception {
-      if (new File(BINARY_ROOT_FOLDER, "/release/share/Thumbs.db").exists())
-         return;
-      try (InputStream st = Bootstrap.class
-            .getResourceAsStream("/graphviz.zip");
-
-      ) {
-         getZipFiles(st, BINARY_ROOT_FOLDER);
+      if (!isUnziped()) {
+         try (InputStream st = Bootstrap.class
+               .getResourceAsStream("/graphviz.zip")) {
+            getZipFiles(st, BINARY_ROOT_FOLDER);
+         }
       }
+   }
+
+   private static boolean isUnziped() {
+      return new File(BINARY_ROOT_FOLDER, "/release/share/Thumbs.db").exists();
    }
 
    public static void getZipFiles(InputStream is, String dest) throws Exception {
