@@ -1,9 +1,9 @@
 package com.vmware.sofia.games.javatopia.server.rest.latency;
 
 import static com.vmware.sofia.games.javatopia.server.tests.tools.Log.log;
+
 import java.util.Timer;
 import java.util.TimerTask;
-import org.apache.log4j.Logger;
 
 import com.vmware.sofia.games.javatopia.server.tests.tools.Log;
 
@@ -11,7 +11,7 @@ public class LatencyService {
 	
 	private static final String INITIAL_PAUSE_PROPERTY = "com.vmware.sofia.games.javatopia.pause";
 	
-	private Object WAIT_LOCK = new Object();
+   private static Object WAIT_LOCK = new Object();
 	
 	private volatile static long startContestTime = 0;
 	
