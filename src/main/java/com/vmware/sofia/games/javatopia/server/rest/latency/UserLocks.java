@@ -8,7 +8,7 @@ import com.vmware.sofia.games.javatopia.server.tests.tools.Log;
 public class UserLocks {
    private static ConcurrentHashMap<Integer, UserLocks> userLocks = new ConcurrentHashMap<Integer, UserLocks>();
    private HashSet<String> locked = new HashSet<String>();
-   public LatencyService latencyService = new LatencyService();
+   private LatencyService latencyService = new LatencyService();
 
    public LatencyService getLockLatencyService() {
       return latencyService;

@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Import;
 
 import com.vmware.sofia.games.javatopia.server.rest.RootsFacade;
 import com.vmware.sofia.games.javatopia.server.tests.tools.OSValidator;
+import com.vmware.sofia.games.javatopia.server.tests.tools.TestSuite;
 
 /**
  * Created by kosio on 7/23/14.
@@ -37,6 +38,7 @@ public class Bootstrap {
       if (osValidator.isWindows()) {
          unzipGraphiz();
       }
+      TestSuite t = TestSuite.getInstance();
    }
 
    public static void unzipGraphiz() throws Exception {

@@ -16,7 +16,6 @@ import com.vmware.sofia.games.javatopia.server.tests.tools.TestSuite;
 
 @RestController
 public class ObjectsFacade {
-
    @RequestMapping("/api/sector/{sect}/objects")
    public String objects(@PathVariable("sect") int sector,
          HttpServletRequest request) {
