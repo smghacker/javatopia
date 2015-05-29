@@ -128,14 +128,14 @@ public class Graph implements Serializable {
       nodeLock.writeLock().lock();
       try {
          HashSet<Long> nodesToFrom = links.get(nodeFrom);
-         if (nodesToFrom != null) {
+         if (nodesToFrom == null) {
             return false;
          }
          boolean removed = nodesToFrom.remove(nodeTo);
          if (!removed)
             return false;
          HashSet<Long> nodesFromTo = backlinks.get(nodeTo);
-         if (nodesFromTo != null) {
+         if (nodesFromTo == null) {
             return false;
          }
          return nodesFromTo.remove(nodeFrom);
