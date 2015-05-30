@@ -49,14 +49,13 @@ public class GarbageCarTrajectory {
          } finally {
             locks.leaveWithUser(company, error != null);
          }
-         return "Done for " + ((System.currentTimeMillis() - sec) / 1000)
-               + " seconds. ";
+
       } catch (RuntimeException t) {
          logger.info(t.getMessage());
          logger.trace("Error:", t);
-         return "Done for " + ((System.currentTimeMillis() - sec) / 1000)
-               + " seconds. ";
       }
+      return "Done for " + ((System.currentTimeMillis() - sec) / 1000)
+            + " seconds. ";
    }
 
    String changeTrajectory(Graph gr, String company, String trajectory) {
