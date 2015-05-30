@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,27 +17,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vmware.sofia.games.javatopia.server.core.Graph;
 import com.vmware.sofia.games.javatopia.server.rest.exceptions.IamTeapot;
-import com.vmware.sofia.games.javatopia.server.rest.exceptions.TooManyRequest;
 import com.vmware.sofia.games.javatopia.server.rest.latency.UserLocks;
 import com.vmware.sofia.games.javatopia.server.tests.tools.TestSuite;
 
 @RestController
 public class GarbageCarTrajectory {
+   private static Logger logger = Logger.getLogger(GarbageCarTrajectory.class);
 
    @RequestMapping(value = "/api/sector/{sect}/company/{company}/trajectory", method = RequestMethod.POST)
    public String returnRoots(@PathVariable("sect") int sector,
          @PathVariable String company, @RequestParam String trajectory,
          HttpServletRequest request) {
+      long sec = System.currentTimeMillis();
       try {
          String error = null;
          int hash = ("xx" + request.getRemoteHost()).hashCode();
          company = company + hash;
-         long sec = System.currentTimeMillis();
          UserLocks locks = UserLocks.getServiceForSector(sector);
+         locks.enterWithUser(company);
          try {
-            if (!locks.enterWithUser(company)) {
-               throw new TooManyRequest();
-            }
             if (sector < 1 || sector > TestSuite.SECTOR_COUNT) {
                throw new IllegalArgumentException("Sector is not within 1.."
                      + TestSuite.SECTOR_COUNT + " range.");
@@ -53,8 +52,10 @@ public class GarbageCarTrajectory {
          return "Done for " + ((System.currentTimeMillis() - sec) / 1000)
                + " seconds. ";
       } catch (RuntimeException t) {
-         t.printStackTrace();
-         throw t;
+         logger.info(t.getMessage());
+         logger.trace("Error:", t);
+         return "Done for " + ((System.currentTimeMillis() - sec) / 1000)
+               + " seconds. ";
       }
    }
 

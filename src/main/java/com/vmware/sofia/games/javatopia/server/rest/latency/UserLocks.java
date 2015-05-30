@@ -3,6 +3,7 @@ package com.vmware.sofia.games.javatopia.server.rest.latency;
 import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.vmware.sofia.games.javatopia.server.rest.exceptions.TooManyRequest;
 import com.vmware.sofia.games.javatopia.server.tests.tools.Log;
 
 public class UserLocks {
@@ -28,12 +29,11 @@ public class UserLocks {
       return lock;
    }
 
-   public synchronized boolean enterWithUser(String user) {
+   public synchronized void enterWithUser(String user) {
       if (locked.contains(user)) {
-         return false;
+         throw new TooManyRequest();
       }
       locked.add(user);
-      return true;
    }
 
    public synchronized void leaveWithUser(String user, Boolean longDelay) {
