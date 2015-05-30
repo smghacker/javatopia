@@ -35,7 +35,7 @@ public class Statistics {
       for (int sector = 1; sector <= 10; sector++) {
          LinkedHashMap<String, Integer> sectorObjects = new LinkedHashMap<String, Integer>();
 
-         Graph gr = TestSuite.getInstance().sector(sector);
+         Graph gr = TestSuite.getInstance().sector(sector).clone();
          gr.enterSuspendedState();
          try {
             Iterator<Long> it = gr.getNodeIterator();

@@ -13,10 +13,24 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * class is thread-safe.
  */
 
-public class Graph implements Serializable {
+public class Graph implements Cloneable, Serializable {
 
    private static final long serialVersionUID = 1L;
 
+   private Graph() {
+
+   }
+
+   public Graph clone() {
+      Graph g = new Graph();
+      g.links = new HashMap<>(links);
+         g.backlinks = new HashMap<>(backlinks);
+         g.nodes = new HashSet<>(nodes);
+         g.roots = new HashSet<>(roots);
+         g.nodeAttributes = new HashMap<>(nodeAttributes);
+         g.nodeLock = new ReentrantReadWriteLock();
+         return g;
+   }
    public Graph(Long[] roots) {
       for (Long l : roots) {
          this.nodes.add(l);
