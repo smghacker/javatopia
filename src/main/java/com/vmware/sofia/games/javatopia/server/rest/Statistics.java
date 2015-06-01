@@ -4,6 +4,9 @@ import static com.vmware.sofia.games.javatopia.server.tests.tools.IGraphAttribut
 import static com.vmware.sofia.games.javatopia.server.tests.tools.IGraphAttributes.LINKED_NODE;
 import static com.vmware.sofia.games.javatopia.server.tests.tools.IGraphAttributes.ROOT_NODE;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -109,5 +113,10 @@ public class Statistics {
          i = 0;
       i++;
       statistics.put(player, i);
+   }
+
+   @Scheduled(fixedDelay = 1000)
+   public void writeToFile() throws IOException {
+      Files.write(Paths.get("./statistic.html"), returnStatistics().getBytes());
    }
 }
