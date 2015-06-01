@@ -13,6 +13,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.vmware.sofia.games.javatopia.server.rest.RootsFacade;
 import com.vmware.sofia.games.javatopia.server.tests.tools.OSValidator;
@@ -23,6 +24,7 @@ import com.vmware.sofia.games.javatopia.server.tests.tools.TestSuite;
  */
 @Configuration
 @EnableAutoConfiguration
+@EnableScheduling
 @ComponentScan(basePackageClasses = { RootsFacade.class, OSValidator.class })
 @Import(SecurityConfig.class)
 public class Bootstrap {
@@ -31,7 +33,7 @@ public class Bootstrap {
          .getProperty("user.home") + "/Software/Graphviz2/";
 
    public static void main(String[] args) throws Exception {
-      // unzipGraphiz();
+      unzipGraphiz();
       ConfigurableApplicationContext ctx = SpringApplication.run(
             Bootstrap.class, args);
       OSValidator osValidator = ctx.getBean(OSValidator.class);
