@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vmware.sofia.games.javatopia.server.core.Graph;
+import com.vmware.sofia.games.javatopia.server.rest.exceptions.ResourceNotFoundException;
 import com.vmware.sofia.games.javatopia.server.rest.latency.UserLocks;
 import com.vmware.sofia.games.javatopia.server.tests.tools.TestSuite;
 
@@ -19,8 +20,7 @@ public class RootsFacade {
    public String returnRoots(@PathVariable("sect") int sector,
          HttpServletRequest request) {
       if (sector < 1 || sector > TestSuite.SECTOR_COUNT) {
-         throw new IllegalArgumentException("Valid sectors are between 1 and "
-               + TestSuite.SECTOR_COUNT);
+         throw new ResourceNotFoundException();
       }
       String user = request.getRemoteHost();
       UserLocks locks = UserLocks.getServiceForSector(sector);

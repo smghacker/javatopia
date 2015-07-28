@@ -53,6 +53,7 @@ public class GarbageCarTrajectory {
       } catch (RuntimeException t) {
          logger.info(t.getMessage());
          logger.trace("Error:", t);
+         throw t;
       }
       return "Done for " + ((System.currentTimeMillis() - sec) / 1000)
             + " seconds. ";

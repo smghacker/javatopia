@@ -61,7 +61,7 @@ public class LatencyService {
 	
 	public void endTrajectoryLatencyFailure() {
 		try {
-			Thread.sleep(30000);
+			Thread.sleep(DEFAULT_PAUSE);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
