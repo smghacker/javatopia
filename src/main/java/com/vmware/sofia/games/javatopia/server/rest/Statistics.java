@@ -33,7 +33,7 @@ public class Statistics {
    @RequestMapping("/api/statistics")
    public String returnStatistics() {
       LinkedHashMap<String, Integer> globalObjects = new LinkedHashMap<String, Integer>();
-      StringBuffer results = new StringBuffer();
+      StringBuilder results = new StringBuilder();
       results
             .append("<html><head><meta http-equiv=\"refresh\" content=\"200\" </title> <body>");
       for (int sector = 1; sector <= 10; sector++) {
